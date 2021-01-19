@@ -1,5 +1,6 @@
 const inquirer = require(`inquirer`);
 const fs = require(`fs`);
+const license = require(`./license.js`);
 
 inquirer
   .prompt([
@@ -44,7 +45,20 @@ inquirer
     {
       type: `list`,
       message: `Select license used`,
-      choices: [`this`, `that`, `everthing else`],
+      choices: [
+        `No license used`,
+        `Apache 2.0 License`,
+        `Boost Software License 1.0`,
+        `BSD 3-Clause License`,
+        `Eclipse Public License 1.0`,
+        `GNU GPL v3`,
+        `IBM Public License Version 1.0`,
+        `ISC License (ISC)`,
+        `The MIT License`,
+        `Mozilla Public License 2.0`,
+        `The Artistic License 2.0`,
+        `Other`,
+      ],
       name: `license`,
     },
     //Get GitHub username
@@ -61,9 +75,11 @@ inquirer
     },
   ])
   .then((answers) => {
-    console.log(answers);
+    const myLicense = license.getLicense(answers.license);
+
     //create file and write in it
-    fs.writeFile("README.md", buildReadMe(answers), (err) =>
+
+    fs.writeFile("README.md", buildReadMe(answers, myLicense), (err) =>
       err ? console.error(err) : console.log("Success!")
     );
   })
@@ -75,10 +91,10 @@ inquirer
     }
   });
 
-const buildReadMe = (answers) => {
-  console.log(`answers returns ${answers.title}`);
+const buildReadMe = (answers, showLicense) => {
   return `# ${answers.title}
-  
+  ${showLicense.badge}
+
   ## Description
     
     ${answers.description}
@@ -103,6 +119,8 @@ const buildReadMe = (answers) => {
   ### License
     
     ${answers.license}
+
+    ${showLicense.description}
     
   ### Contributing
     
