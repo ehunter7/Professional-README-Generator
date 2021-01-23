@@ -25,6 +25,8 @@
 
 ### Screenshots
 
+
+![README_Generator_README_screenshot](https://user-images.githubusercontent.com/73093272/105570190-7d61af80-5cfc-11eb-8de8-8ec1f9866769.png)
 ![](C:\projects\Homework\Professional-README-Generator\Assets\README_Generator_terminal_screenshot.png)
 ![](Assets\README_Generator_README_screenshot.png)
 
